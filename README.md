@@ -141,8 +141,32 @@ You can add multiple districts — each creates its own set of sensors. All dist
 
 ### Manual
 
-1. Copy the `custom_components/cfa_fire_forecast` folder into your Home Assistant `config/custom_components/` directory
-2. Restart Home Assistant
+1. Download the [latest release](../../releases/latest) zip or clone the repository
+2. Copy the following into your Home Assistant `config/` directory:
+
+   ```
+   config/
+   ├── custom_components/
+   │   └── cfa_fire_forecast/        ← copy this entire folder
+   │       ├── www/
+   │       │   └── cfa-fire-forecast-card.js
+   │       ├── translations/
+   │       │   └── en.json
+   │       ├── __init__.py
+   │       ├── config_flow.py
+   │       ├── const.py
+   │       ├── coordinator.py
+   │       ├── manifest.json
+   │       ├── sensor.py
+   │       └── strings.json
+   └── www/                           ← copy this folder (Lovelace card fallback)
+       └── cfa-fire-forecast-card.js
+   ```
+
+   The `custom_components/cfa_fire_forecast/` folder is required. The `www/` folder at the root is a fallback for the Lovelace card — the integration will attempt to auto-register the card from its own `www/` subfolder, but having it in `config/www/` ensures it works if auto-registration fails.
+
+3. Restart Home Assistant
+4. If the Lovelace card doesn't auto-register, add it manually: **Settings → Dashboards → three dots → Resources → Add Resource** with URL `/local/cfa-fire-forecast-card.js` and type **JavaScript Module**
 
 ## Configuration
 
